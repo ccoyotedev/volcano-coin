@@ -11,7 +11,7 @@ async function main() {
   //
   // If this script is run directly using `node` you may want to call compile
   // manually to make sure everything is compiled
-  await hre.run('compile');
+  // await hre.run('compile');
 
   const deployer = await hre.ethers.getSigner();
   console.log(`Deploying contract with the account: ${deployer.address}`);
@@ -20,11 +20,12 @@ async function main() {
   console.log(`Account balance: ${balance.toString()}`);
 
   // We get the contract to deploy
+  const CoyoteToken = await hre.ethers.getContractFactory("CoyoteToken");
+  const coyoteToken = await CoyoteToken.deploy();
 
-  const VolcanoCoin = await hre.ethers.getContractFactory("VolcanoCoin");
-  const volcanoCoin = await VolcanoCoin.deploy();
+  await coyoteToken.deployed();
 
-  console.log("Volcano Coin deployed to:", volcanoCoin.address);
+  console.log("Coyote Token deployed to:", coyoteToken.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

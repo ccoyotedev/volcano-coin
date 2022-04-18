@@ -22,7 +22,7 @@ describe("VolcanoCoin", function () {
     [owner, addr1, addr2, _] = await ethers.getSigners();
   })
 
-  describe("Deployment", () => {
+  describe("Deployment", async () => {
     it("Should be set with the Volcano Coin information", async () => {
       // Failing test
       expect(addr1.address).to.not.equal(await volcanoCoin.owner());
@@ -41,7 +41,7 @@ describe("VolcanoCoin", function () {
     })
   })
 
-  describe("Increasing supply", () => {
+  describe("Increasing supply", async () => {
     it("Should be able to increase the supply by 1000 tokens", async () => {
       const tx = await volcanoCoin.increaseSupply(1000);
       const res = await tx.wait();
@@ -57,7 +57,7 @@ describe("VolcanoCoin", function () {
     })
   })
 
-  describe("Allowance", () => {
+  describe("Allowance", async () => {
     it("increases allowance for address1", async () => {
       const currentAllowance = await volcanoCoin.allowance(owner.address, addr1.address);
       const tx = await volcanoCoin.increaseAllowance(addr1.address, 1000);
@@ -91,7 +91,7 @@ describe("VolcanoCoin", function () {
 
   })
 
-  describe("Transfer", () => {
+  describe("Transfer", async () => {
     it("reverts when transferring tokens to the zero address", async () => {
       await expectRevert(
         volcanoCoin.transfer(constants.ZERO_ADDRESS, 10),
